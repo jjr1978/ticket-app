@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { GridColumn, Container } from "semantic-ui-react";
-import LeftHeader from "./LeftHeader";
-import LeftMenu from "./LeftMenu";
-import LeftFooter from "./LeftFooter";
+import LeftHeader from "./Left/LeftHeader";
+import LeftMenu from "./Left/LeftMenu";
+import LeftFooter from "./Left/LeftFooter";
 import "./LeftPanel.scss";
 
 export class LeftPanel extends Component {

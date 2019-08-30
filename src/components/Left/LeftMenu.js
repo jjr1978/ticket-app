@@ -12,12 +12,12 @@ export class LeftMenu extends Component {
         </Menu.Item>
         <Menu.Item name="tickets">
           <Label>2 </Label>
-          <Link to="/listaticket">Tickets</Link>
+          <Link to="/tickets">Tickets</Link>
         </Menu.Item>
 
         <Menu.Item name="proyectos">
-          <Label>1</Label>
-          Proyectos
+          <Label>2</Label>
+          <Link to="/proyectos">Proyectos</Link>
         </Menu.Item>
         <Menu.Item name="categorias">
           <Label>1</Label>
