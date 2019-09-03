@@ -4,22 +4,35 @@ import ListaTicket from "./ListaTicket";
 import TicketForm from "./TicketForm";
 
 export class Tickets extends Component {
+  state = {
+    openModal: false
+  };
+
+  closeModal = () => {
+    this.setState({ openModal: false });
+  };
+
+  openModal = () => {
+    this.setState({ openModal: true });
+  };
   render() {
+    const { openModal } = this.state;
     return (
       <Container>
         <Modal
           trigger={
-            <Button primary>
+            <Button primary onClick={() => this.openModal()}>
               <Icon name="plus" />
               Nuevo Ticket
             </Button>
           }
           centered={true}
+          open={openModal}
         >
           <Modal.Header>Nuevo Ticket</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <TicketForm />
+              <TicketForm close={this.closeModal} />
             </Modal.Description>
           </Modal.Content>
         </Modal>

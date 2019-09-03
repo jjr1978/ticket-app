@@ -14,7 +14,7 @@ function DashboardRecentAct() {
             <Feed.Content>
               <Feed.Date content="Hoy" />
               <Feed.Summary>
-                Se han creado <a>2</a> tickets.
+                Se han creado 2 tickets.
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>
@@ -24,7 +24,7 @@ function DashboardRecentAct() {
             <Feed.Content>
               <Feed.Date content="1 día atrás" />
               <Feed.Summary>
-                Se ha creado <a>1</a> tickets.
+                Se ha creado 1 tickets.
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>

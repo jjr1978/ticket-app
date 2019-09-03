@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { proyectos } from "../../store/store";
+import { proyectos } from "../../store/store_1";
 
 export class ListaProyectos extends Component {
   constructor() {
