@@ -21,17 +21,51 @@ const initialState = {
       fecha_ult_modificacion: "14/01/2019"
     }
   ],
-  proyectos: []
+  proyectos: [
+    {
+      id: 1,
+      nombre: "SIGeMi",
+      descripcion: "Aplicactivo SIGeMi"
+    },
+    {
+      id: 2,
+      nombre: "APEX",
+      descripcion: "Aplicaciones APEX"
+    }
+  ]
 };
 
 const reducerTickets = (state = initialState, action) => {
-  if (action.type === "ELIMINAR_TICKET") {
-    return { ...state, tickets: state.tickets.filter(t => t.id !== action.id) };
-  } else if (action.type === "AGREGAR_TICKET") {
-    return { ...state, tickets: state.tickets.concat(action.ticket) };
-  }
+  switch (action.type) {
+    case "ELIMINAR_TICKET":
+      return {
+        ...state,
+        tickets: state.tickets.filter(t => t.id !== action.id)
+      };
+    case "AGREGAR_TICKET":
+      return { ...state, tickets: state.tickets.concat(action.ticket) };
+    case "AGREGAR_PROYECTO":
+      return { ...state, proyectos: state.proyectos.concat(action.proyecto) };
+    case "ELIMINAR_PROYECTO":
+      return {
+        ...state,
+        proyectos: state.proyectos.filter(
+          proyecto => proyecto.id !== action.proyecto.id
+        )
+      };
+    case "EDITAR_PROYECTO":
+      const proyectos = state.proyectos.map(proyecto => {
+        if (proyecto.id === action.proyecto.id) {
+          return action.proyecto;
+        } else {
+          return proyecto;
+        }
+      });
+      return { ...state, proyectos };
 
-  return state;
+    default:
+      return state;
+  }
 };
 
 export default createStore(reducerTickets);

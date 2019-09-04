@@ -1,31 +1,11 @@
 import React, { Component } from "react";
-import { Table, Dimmer, Loader, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import { proyectos } from "../../store/store_1";
+import { Table, Icon } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 export class ListaProyectos extends Component {
-  constructor() {
-    super();
-    this.state = {
-      proyectos: [],
-      loading: true
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      proyectos: proyectos,
-      loading: false
-    });
-  }
   render() {
-    const { proyectos } = this.state;
-
-    return  this.state.loading ? (
-        <Dimmer active>
-          <Loader content="Loading" />
-        </Dimmer> 
-      ) : (
+    const { proyectos, openModal } = this.props;
+    return (
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -34,25 +14,24 @@ export class ListaProyectos extends Component {
             <Table.HeaderCell>Descripcion</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
-          {this.state.loading ? (<span>Cargando...</span>) : (
-            proyectos.map(proyecto => (
-              <Table.Row key={proyecto.id}>
-                <Table.Cell>
-                  <Link to="/login">
-                    <Icon name="edit" />
-                  </Link>
-                </Table.Cell>
-                <Table.Cell>{proyecto.nombre}</Table.Cell>
-                <Table.Cell>{proyecto.descripcion}</Table.Cell>
-              </Table.Row>
-            ))
-          )}
+          {proyectos.map(proyecto => (
+            <Table.Row key={proyecto.id}>
+              <Table.Cell>
+                <Icon name="edit" onClick={() => openModal(proyecto.id)} />
+              </Table.Cell>
+              <Table.Cell>{proyecto.nombre}</Table.Cell>
+              <Table.Cell>{proyecto.descripcion}</Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
     );
   }
 }
 
-export default ListaProyectos;
+const mapStateToProps = state => ({
+  proyectos: state.proyectos
+});
+
+export default connect(mapStateToProps)(ListaProyectos);

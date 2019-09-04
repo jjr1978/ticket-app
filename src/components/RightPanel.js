@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { GridColumn } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
-// import Ticket from "./Ticket/Ticket";
 import Dashboard from "./Right/Dashboard";
 import Login from "./Login";
 import Tickets from  './Ticket/Tickets';

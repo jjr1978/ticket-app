@@ -5,18 +5,19 @@ import TicketForm from "./TicketForm";
 
 export class Tickets extends Component {
   state = {
-    openModal: false
+    openModal: false,
+    editTicketId: null
   };
 
   closeModal = () => {
     this.setState({ openModal: false });
   };
 
-  openModal = () => {
-    this.setState({ openModal: true });
+  openModal = id => {
+    this.setState({ openModal: true, editTicketId: id });
   };
   render() {
-    const { openModal } = this.state;
+    const { openModal, editTicketId } = this.state;
     return (
       <Container>
         <Modal
@@ -32,11 +33,11 @@ export class Tickets extends Component {
           <Modal.Header>Nuevo Ticket</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <TicketForm close={this.closeModal} />
+              <TicketForm close={this.closeModal} editTicketId={editTicketId} />
             </Modal.Description>
           </Modal.Content>
         </Modal>
-        <ListaTicket />
+        <ListaTicket open={this.openModal} />
       </Container>
     );
   }

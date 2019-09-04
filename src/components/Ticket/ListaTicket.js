@@ -1,24 +1,11 @@
 import React, { Component } from "react";
-import { Table, Loader, Dimmer, Icon } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 // import { tickets } from "../../store/store_1";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 export class ListaTicket extends Component {
-  // componentDidMount() {
-  //   this.setState({
-  //     tickets: tickets,
-  //     loading: false
-  //   });
-
   render() {
-    // const { tickets } = this.state;
-    // return this.state.loading ? (
-    //   <Dimmer active>
-    //     <Loader content="Loading" />
-    //   </Dimmer>
-    // ) : (
-
     return (
       <Table singleLine compact>
         <Table.Header>
@@ -37,7 +24,6 @@ export class ListaTicket extends Component {
                 <Link to="/login">
                   <Icon name="edit" />
                 </Link>
-
                 <Icon
                   name="delete"
                   color="red"

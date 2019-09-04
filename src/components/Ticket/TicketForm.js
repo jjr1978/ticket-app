@@ -9,7 +9,8 @@ export class TicketForm extends Component {
     descripcion: "",
     tipo: null,
     estado: "Nuevo",
-    id: Math.floor(Math.random() * 9999)
+    id: Math.floor(Math.random() * 9999),
+    proyecto: "1"
   };
 
   handleChange = e => {
@@ -18,8 +19,8 @@ export class TicketForm extends Component {
     });
   };
 
-  handleChangeTipo = (e, data) => {
-    this.setState({ tipo: data.value });
+  handleChangeSelect = (e, data) => {
+    this.setState({ [data.id]: data.value });
   };
 
   handleSubmit = e => {
@@ -28,16 +29,24 @@ export class TicketForm extends Component {
     this.props.close();
   };
 
+  convertirProyectoSelect(proy) {
+    return { key: proy.id, text: proy.nombre, value: proy.id };
+  }
+
   render() {
-    const {tipo} = this.state;
+    const { tipo, proyecto } = this.state;
+    const proyOptions = this.props.proyectos.map(p =>
+      this.convertirProyectoSelect(p)
+    );
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} className="form-ticket">
         <Form.Field
           control={Input}
           id="titulo"
           label="Titulo"
           placeholder="Título del Ticket"
           onChange={this.handleChange}
+          required
         />
         <Form.Field
           control={TextArea}
@@ -45,6 +54,7 @@ export class TicketForm extends Component {
           id="descripcion"
           placeholder="Desarrolle el pedido"
           onChange={this.handleChange}
+          required
         />
         <Form.Field
           control={Select}
@@ -52,19 +62,28 @@ export class TicketForm extends Component {
           id="tipo"
           options={tipoTicket}
           placeholder="Tipo"
-           value={tipo}
-          onChange={this.handleChangeTipo}
+          value={tipo}
+          onChange={this.handleChangeSelect}
+          required
         />
-        <div>
-          <Button.Group floated="left">
-            <Button onClick={() => this.props.close()}>Cancelar</Button>
-          </Button.Group>
-          <Button.Group floated="right">
-            <Button primary type="submit">
-              Nuevo
-            </Button>
-          </Button.Group>
-        </div>
+        <Form.Field
+          control={Select}
+          label="Proyecto"
+          id="proyecto"
+          options={proyOptions}
+          placeholder="Proyecto"
+          value={proyecto}
+          onChange={this.handleChangeSelect}
+          required
+        />
+        <Button.Group>
+          <Button floated="left" onClick={() => this.props.close()}>
+            Cancelar
+          </Button>
+          <Button floated="right" primary type="submit">
+            Crear
+          </Button>
+        </Button.Group>
       </Form>
     );
   }
@@ -73,7 +92,8 @@ export class TicketForm extends Component {
 // ,
 
 const mapStateToProps = state => ({
-  tickets: state.tickets
+  tickets: state.tickets,
+  proyectos: state.proyectos
 });
 const mapDispatchToProps = dispatch => ({
   agregarTicket(ticket) {

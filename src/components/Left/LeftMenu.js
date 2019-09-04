@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import { Menu, Label, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 export class LeftMenu extends Component {
   render() {
+    const { tickets, proyectos } = this.props;
     return (
       <Menu vertical>
         <Menu.Item name="resumen">
-          <Label>1</Label>
           <Link to="/dashboard">Resumen </Link>
         </Menu.Item>
         <Menu.Item name="tickets">
-          <Label>2 </Label>
+          <Label>{tickets.length} </Label>
           <Link to="/tickets">Tickets</Link>
         </Menu.Item>
 
         <Menu.Item name="proyectos">
-          <Label>2</Label>
+          <Label>{proyectos.length}</Label>
           <Link to="/proyectos">Proyectos</Link>
         </Menu.Item>
         <Menu.Item name="categorias">
@@ -39,4 +40,9 @@ export class LeftMenu extends Component {
   }
 }
 
-export default LeftMenu;
+const mapStateToProps = state => ({
+  tickets: state.tickets,
+  proyectos: state.proyectos
+});
+
+export default connect(mapStateToProps)(LeftMenu);
