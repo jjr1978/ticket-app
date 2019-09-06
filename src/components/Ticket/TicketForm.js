@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 import { tipoTicket } from "../../store/store_1";
 
 export class TicketForm extends Component {
-  state = {
-    titulo: "",
-    descripcion: "",
-    tipo: null,
-    estado: "Nuevo",
-    id: Math.floor(Math.random() * 9999),
-    proyecto: "1"
-  };
+  constructor(props) {
+    super(props);
+    this.state = props.editTicketId
+      ? props.tickets.find(p => p.id === props.editTicketId)
+      : {
+          titulo: "",
+          descripcion: "",
+          tipo: {},
+          estado: "Nuevo",
+          id: Math.floor(Math.random() * 9999),
+          proyecto: "1"
+        };
+  }
 
   handleChange = e => {
     this.setState({
@@ -19,8 +24,18 @@ export class TicketForm extends Component {
     });
   };
 
-  handleChangeSelect = (e, data) => {
-    this.setState({ [data.id]: data.value });
+  handleChangeSelectProyecto = (e, data) => {
+    const nuevoProyecto = this.props.proyectos.find(proy => proy.id === data.value);
+    this.setState({ [data.id]: nuevoProyecto });
+  };
+
+  handleChangeSelectTipo = (e, data) => {
+    const nuevoTipo = this.props.tipoTicket.find(
+      tipo => tipo.breve === data.value
+    );
+    this.setState({
+      [data.id]: nuevoTipo
+    });
   };
 
   handleSubmit = e => {
@@ -33,8 +48,23 @@ export class TicketForm extends Component {
     return { key: proy.id, text: proy.nombre, value: proy.id };
   }
 
+  handleSubmitCrear = e => {
+    this.props.agregarTicket(this.state);
+    this.props.close();
+  };
+
+  handleSubmitEditar = e => {
+    this.props.editarTicket(this.state);
+    this.props.close();
+  };
+
+  handleSubmitEliminar = e => {
+    this.props.eliminarTicket(this.state);
+    this.props.close();
+  };
+
   render() {
-    const { tipo, proyecto } = this.state;
+    const { tipo, proyecto, titulo, descripcion } = this.state;
     const proyOptions = this.props.proyectos.map(p =>
       this.convertirProyectoSelect(p)
     );
@@ -46,6 +76,7 @@ export class TicketForm extends Component {
           label="Titulo"
           placeholder="Título del Ticket"
           onChange={this.handleChange}
+          value={titulo}
           required
         />
         <Form.Field
@@ -54,6 +85,7 @@ export class TicketForm extends Component {
           id="descripcion"
           placeholder="Desarrolle el pedido"
           onChange={this.handleChange}
+          value={descripcion}
           required
         />
         <Form.Field
@@ -62,8 +94,8 @@ export class TicketForm extends Component {
           id="tipo"
           options={tipoTicket}
           placeholder="Tipo"
-          value={tipo}
-          onChange={this.handleChangeSelect}
+          value={tipo.breve}
+          onChange={this.handleChangeSelectTipo}
           required
         />
         <Form.Field
@@ -72,17 +104,45 @@ export class TicketForm extends Component {
           id="proyecto"
           options={proyOptions}
           placeholder="Proyecto"
-          value={proyecto}
-          onChange={this.handleChangeSelect}
+          value={proyecto.id}
+          onChange={this.handleChangeSelectProyecto}
           required
         />
         <Button.Group>
           <Button floated="left" onClick={() => this.props.close()}>
             Cancelar
           </Button>
-          <Button floated="right" primary type="submit">
-            Crear
-          </Button>
+          {this.props.editTicketId ? (
+            <Button
+              floated="right"
+              primary
+              id="editar"
+              onClick={() => this.handleSubmitEditar()}
+            >
+              Editar Ticket
+            </Button>
+          ) : (
+            <Button
+              floated="right"
+              primary
+              id="crear"
+              onClick={() => this.handleSubmitCrear()}
+            >
+              Crear Ticket
+            </Button>
+          )}
+          {this.props.editTicketId ? (
+            <Button
+              floated="right"
+              negative
+              id="eliminar"
+              onClick={() => this.handleSubmitEliminar()}
+            >
+              Eliminar Ticket
+            </Button>
+          ) : (
+            <span></span>
+          )}
         </Button.Group>
       </Form>
     );
@@ -93,14 +153,18 @@ export class TicketForm extends Component {
 
 const mapStateToProps = state => ({
   tickets: state.tickets,
-  proyectos: state.proyectos
+  proyectos: state.proyectos,
+  tipoTicket: state.tipoTicket
 });
 const mapDispatchToProps = dispatch => ({
   agregarTicket(ticket) {
-    dispatch({
-      type: "AGREGAR_TICKET",
-      ticket
-    });
+    dispatch({ type: "AGREGAR_TICKET", ticket });
+  },
+  editarTicket(ticket) {
+    dispatch({ type: "EDITAR_TICKET", ticket });
+  },
+  eliminarTicket(ticket) {
+    dispatch({ type: "ELIMINAR_TICKET", ticket });
   }
 });
 

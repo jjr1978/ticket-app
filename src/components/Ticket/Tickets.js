@@ -37,7 +37,7 @@ export class Tickets extends Component {
             </Modal.Description>
           </Modal.Content>
         </Modal>
-        <ListaTicket open={this.openModal} />
+        <ListaTicket openModal={this.openModal} close={this.closeModal} />
       </Container>
     );
   }
