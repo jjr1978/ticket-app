@@ -30,7 +30,7 @@ export class Tickets extends Component {
           centered={true}
           open={openModal}
         >
-          <Modal.Header>Nuevo Ticket</Modal.Header>
+          <Modal.Header>Ticket</Modal.Header>
           <Modal.Content>
             <Modal.Description>
               <TicketForm close={this.closeModal} editTicketId={editTicketId} />

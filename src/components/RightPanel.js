@@ -3,8 +3,9 @@ import { GridColumn } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
 import Dashboard from "./Right/Dashboard";
 import Login from "./Login";
-import Tickets from  './Ticket/Tickets';
-import Proyectos from './Proyecto/Proyectos';
+import Tickets from "./Ticket/Tickets";
+import Proyectos from "./Proyecto/Proyectos";
+import Ticket from "./Ticket/Ticket";
 
 export class RightPanel extends Component {
   render() {
@@ -23,6 +24,7 @@ export class RightPanel extends Component {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/login" component={Login} />
           <Route path="/proyectos" component={Proyectos} />
+          <Route path="/ticket/:id" component={Ticket} />
         </Switch>
       </GridColumn>
     );

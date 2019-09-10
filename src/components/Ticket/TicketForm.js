@@ -69,7 +69,7 @@ export class TicketForm extends Component {
       this.convertirProyectoSelect(p)
     );
     return (
-      <Form onSubmit={this.handleSubmit} className="form-ticket">
+      <Form onSubmit={this.handleSubmit} className="form-ticket" size="small">
         <Form.Field
           control={Input}
           id="titulo"
@@ -156,6 +156,7 @@ const mapStateToProps = state => ({
   proyectos: state.proyectos,
   tipoTicket: state.tipoTicket
 });
+
 const mapDispatchToProps = dispatch => ({
   agregarTicket(ticket) {
     dispatch({ type: "AGREGAR_TICKET", ticket });

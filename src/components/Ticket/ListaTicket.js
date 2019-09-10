@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
-
+import {Link} from 'react-router-dom';
 export class ListaTicket extends Component {
   render() {
     const { tickets, openModal } = this.props;
@@ -15,6 +15,7 @@ export class ListaTicket extends Component {
             <Table.HeaderCell>Estado</Table.HeaderCell>
             <Table.HeaderCell>Tipo</Table.HeaderCell>
             <Table.HeaderCell>Proyecto</Table.HeaderCell>
+            <Table.HeaderCell>Mov.</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -28,6 +29,7 @@ export class ListaTicket extends Component {
               <Table.Cell>{ticket.estado}</Table.Cell>
               <Table.Cell>{ticket.tipo.descripcion}</Table.Cell>
               <Table.Cell>{ticket.proyecto.descripcion}</Table.Cell>
+              <Table.Cell> <Link to={`/ticket/${ticket.id}`}><Icon name="list" color="blue" /></Link></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

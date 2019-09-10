@@ -17,7 +17,27 @@ const initialState = {
         id: 1,
         nombre: "SIGeMi",
         descripcion: "Aplicactivo SIGeMi"
-      }
+      },
+      movimientos: [
+        {
+          id: 1,
+          user: "GPIMENTEL",
+          fecha: "12/01/2019",
+          detalle: "Se inicio el reclamo"
+        },
+        {
+          id: 2,
+          user: "JRODRIGUEZ",
+          fecha: "12/01/2019",
+          detalle: "Se inicio el reclamo"
+        },
+        {
+          id: 3,
+          user: "JRODRIGUEZ",
+          fecha: "13/01/2019",
+          detalle: "Prueba el reclamo"
+        }
+      ]
     },
     {
       id: 2,
@@ -34,7 +54,15 @@ const initialState = {
         id: 1,
         nombre: "SIGeMi",
         descripcion: "Aplicactivo SIGeMi"
-      }
+      },
+      movimientos: [
+        {
+          id: 4,
+          user: "GPIMENTEL",
+          fecha: "12/01/2019",
+          detalle: "Se inicio el reclamo"
+        }
+      ]
     }
   ],
   proyectos: [
